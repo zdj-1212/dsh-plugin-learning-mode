@@ -1,0 +1,4 @@
+- insert:
+    - id: learning-mode
+      name: 'dsh-plugin-learning-mode'
+      config: {}
