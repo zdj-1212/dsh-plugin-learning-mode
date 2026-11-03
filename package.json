@@ -1,7 +1,7 @@
 {
   "name": "dsh-plugin-learning-mode",
-  "version": "0.1.0",
-  "description": "DeepSeek Harness 学习模式插件：/learn 一句话生成完整学习资料与分阶段学习路线，并在当前会话持续用学习模式回答。",
+  "version": "0.2.0",
+  "description": "DeepSeek Harness 学习模式插件：/learn 先了解你的实际情况，再生成专属完整学习资料与分阶段学习路线，状态持久化。",
   "author": "zdj-1212",
   "repository": {
     "type": "git",
