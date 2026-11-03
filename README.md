@@ -96,16 +96,23 @@ Desktop App 则在 Plugins 页面填写该插件目录的绝对路径。
 
 学习模式的状态是**持久化**的：
 
-- `/learn` 和 `/learn off` 会向当前会话日志追加一条完整的 `learning/mode` 事件；
+- `/learn` 和 `/learn off` 会向当前会话日志追加一条完整的 `plugin:learning-mode/mode` **可忽略插件记录**（`ignorable: true`）；
 - 插件注册了 `learning-mode` session projection，从日志折叠出 `{ active, topic }`；
+- 记录放在 `plugin:` 命名空间并标记为可忽略，所以即使 Harness 版本不认识它，也会保留并跳过，而不会拒绝加载整个会话；
 - 会话恢复、fork、压缩和 Harness 重启后，主题和开关状态都会恢复；
 - 如果命令在模型正在运行时执行，状态变更会先进入 pending，在下一个被接受的 `agent/pre-step` 边界写入日志，与 plan mode 使用同一个边界。
 
 ## 说明
 
 - 插件只注册 host 端命令、系统提示词段和 session projection，不需要前端构建步骤。
-- 不直接 import `@deepseek-ai/dsh-*` 运行时包，因此在 profile 的独立 `node_modules` 中也能加载。
+- 唯一直接 import 的运行时包是 `@deepseek-ai/dsh-session`（用于写可忽略插件记录），由 Harness 的插件加载器解析。
 - 依赖 DeepSeek Harness `0.2.1-rc.5` 及以上的 `commands`、`system-prompt`、`session-projection`、`agent` 服务。
+
+## 更新日志
+
+- **0.2.1**：改用 `plugin:learning-mode/mode` 可忽略插件记录，修复 0.2.0 写入 `learning/mode` 导致会话加载失败的问题。
+- **0.2.0**：生成计划前先询问基础、每天时间、目标期限、学习偏好和当前卡点，输出专属计划。
+- **0.1.0**：首个版本。
 
 ## 目录
 
